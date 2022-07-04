@@ -1,0 +1,112 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+<html class="no-js" lang="fa" dir="rtl">
+
+{% block content %}
+
+<body>
+
+    <!--header area start-->
+    <header>
+        <div class="main_header header_padding">
+            <div class="container">
+                <!--header top start-->
+                <div class="header_top">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-md-5">
+                            <div class="antomi_message">
+                                <p>ارسال رایگان - ضمانت بازگشت وجه 30 روزه</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-7">
+                            <div class="header_top_settings text-right">
+                                <ul>
+                                    <li><a href="#">آدرس‌های فروشگاه</a></li>
+                                    <li><a href="#">پیگیری سفارش</a></li>
+                                    <li>تلفن تماس: <a class="ltr-text" href="tel:+(+98)800456789">(+98) 800 456 789 </a></li>
+                                    <li>ضمانت کیفیت محصولات</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--header top start-->
+
+                <!--header middel start-->
+                <div class="header_middle sticky-header">
+                    <div class="row align-items-center">
+                        <div class="col-lg-2 col-md-6">
+                            <div class="logo">
+                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+    </header>
+    <!--header area end-->
+
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="index.html">خانه</a></li>
+                            <li>حساب کاربری</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!-- customer login start -->
+    <div class="login_page_bg">
+        <div class="container">
+            <div class="customer_login">
+                <div class="row">
+
+                    <!--register area start-->
+                    <div class="col-lg-6 col-md-6">
+                        <div class="account_form register">
+                            <h2>ثبت نام کاربر</h2>
+                            <form action="{% url 'signup_customer' %}" method="post">
+                                   {% csrf_token %}
+                                   {{form.as_p}}
+
+                                <div class="login_submit">
+                                    <button type="submit">ثبت نام</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+                </div>
+                </div>
+   {% endblock content %}
+
+    <!-- JS>
+
+============================================ -->
+
+    <!-- Plugins JS -->
+    <script src="{% static 'assets/js/plugins.js'%}"></script>
+
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/main.js'%}"></script>
+
+
+
+</body>
+
+</html>

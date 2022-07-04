@@ -1,0 +1,136 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="../../../templates/index.html">خانه</a></li>
+                            <li>سبد خرید</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!--shopping cart area start -->
+    <div class="cart_page_bg">
+        <div class="container">
+            <div class="shopping_cart_area">
+                <form action="#">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table_desc">
+                                <div class="cart_page table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="product_remove">حذف</th>
+                                                <th class="product_thumb">تصویر</th>
+                                                <th class="product_name">محصول</th>
+                                                <th class="product-price">قیمت</th>
+                                                <th class="product_quantity">تعداد</th>
+                                                <th class="product_total">جمع</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                                <td class="product_thumb"><a href="#"><img src="../../../static/assets/img/s-product/product.jpg" alt=""></a></td>
+                                                <td class="product_name"><a href="#">گوشی اپل آیفون X</a></td>
+                                                <td class="product-price">158,000 تومان</td>
+                                                <td class="product_quantity"><label>تعداد</label> <input min="1" max="100" value="1" type="number"></td>
+                                                <td class="product_total">158,000 تومان</td>
+
+
+                                            </tr>
+
+                                            <tr>
+                                                <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                                <td class="product_thumb"><a href="#"><img src="../../../static/assets/img/s-product/product2.jpg" alt=""></a></td>
+                                                <td class="product_name"><a href="#">صندلی آشپزخانه</a></td>
+                                                <td class="product-price">158,000 تومان</td>
+                                                <td class="product_quantity"><label>تعداد</label> <input min="1" max="100" value="1" type="number"></td>
+                                                <td class="product_total">158,000 تومان</td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                                <td class="product_thumb"><a href="#"><img src="../../../static/assets/img/s-product/product3.jpg" alt=""></a></td>
+                                                <td class="product_name"><a href="#">ساعت هوشمند اپل واچ</a></td>
+                                                <td class="product-price">158,000 تومان</td>
+                                                <td class="product_quantity"><label>تعداد</label> <input min="1" max="100" value="1" type="number"></td>
+                                                <td class="product_total">158,000 تومان</td>
+
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="cart_submit">
+                                    <button type="submit">به روز رسانی سبد</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--coupon code area start-->
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="coupon_code right">
+                                    <h3>مجموع سبد</h3>
+                                    <div class="coupon_inner">
+                                        <div class="cart_subtotal">
+                                            <p>جمع جزء</p>
+                                            <p class="cart_amount">342,000 تومان</p>
+                                        </div>
+                                        <div class="cart_subtotal">
+                                            <p>حمل و نقل</p>
+                                            <p class="cart_amount">20,000 تومان</p>
+                                        </div>
+                                        <a href="#">محاسبه هزینه</a>
+
+                                        <div class="cart_subtotal has-border">
+                                            <p>جمع</p>
+                                            <p class="cart_amount">362,000 تومان</p>
+                                        </div>
+                                        <div class="checkout_btn">
+                                            <a href="#">پرداخت</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    <!--coupon code area end-->
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--shopping cart area end -->
+
+{% endblock content %}
+
+    <!-- JS
+============================================ -->
+
+    <!-- Plugins JS -->
+    <script src="{% static 'assets/js/plugins.js'%}"></script>
+
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/main.js'%}"></script>
+
+
+
+</body>
+
