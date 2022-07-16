@@ -1,0 +1,113 @@
+{% extends 'index.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+<body>
+
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="../../../templates/index.html">خانه</a></li>
+                            <li>سبد خرید</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <!--shopping cart area start -->
+    <div class="cart_page_bg">
+        <div class="container">
+            <div class="shopping_cart_area">
+                <form action="#">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table_desc">
+                                <div class="cart_page table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="product_thumb">تصویر</th>
+                                                <th class="product_name">محصول</th>
+                                                <th class="product-price">قیمت</th>
+                                                <th class="product_quantity">تعداد</th>
+                                                <th class="product_total">جمع</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in order_items  %}
+                                            <tr>
+
+                                                <td class="product_thumb"><a href="#"><img src="{{item.product.image.url}}" alt=""></a></td>
+                                                <td class="product_name"><a href="#">{{ item.product.product_name}}</a></td>
+                                                {% if item.product.discount_price > 0 %}
+                                                <td class="product-price">{{ item.product.discount_price|intcomma:3}}</td>
+                                                {% else %}
+                                                <td class="product-price">{{ item.product.product_price|intcomma:3}}</td>
+                                                {% endif %}
+                                                <td class="product_quantity"><label >تعداد</label>
+                                                    <div class="input-group text-center mb-3" style="width:130px;">
+                                                    <input value="{{item.quantity}}" type="text" name="quantity" class="form-control qty-input text-center">
+                                                    </div>
+                                                </td>
+                                                <td class="product_total">{{item.product_sum_price|intcomma:3}} </td>
+
+
+                                            </tr>
+                                                {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--coupon code area start-->
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="coupon_code right">
+                                    <h3>قیمت نهایی سفارش با هزینه ارسال</h3>
+                                    <div class="coupon_inner">
+
+
+                                        <div class="cart_subtotal">
+                                            <p>جمع</p>
+                                            <p class="cart_amount">{{payment.final_price|intcomma:3}}</p>
+                                        </div>
+                                        <div class="checkout_btn">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    <!--coupon code area end-->
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--shopping cart area end -->
+
+{% endblock content %}
+
+    <!-- JS
+============================================ -->
+
+    <!-- Plugins JS -->
+    <script src="{% static 'assets/js/plugins.js'%}"></script>
+
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/main.js'%}"></script>
+
+
+
+</body>
+

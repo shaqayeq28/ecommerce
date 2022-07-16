@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <title> factor </title>
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+      <div class="col-3"></div>
+        <div class="col-6">
+
+          <form action="{%url 'payment_start' %}" method="POST">
+              {% csrf_token %}
+              <br/> <br/>
+              <button style="width: 100%;"  type="submit" class="btn btn-primary">Start Payment</button>
+          </form>
+
+        </div>
+        <div class="col-3"></div>
+      </div>
+    </div>
+    <br/> <br/>
+
+    <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Payment ID</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Card Number</th>
+                    <th scope="col">IDPay Track ID</th>
+                    <th scope="col">Bank Track ID</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Check</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for payment in payments %}
+                  <tr>
+                    <th scope="row">{{payment.pk}}</th>
+                    <td>{{payment.order_id}}</td>
+                    <td>{{payment.payment_id}}</td>
+                    <td>{{payment.amount}}</td>
+                    <td>{{payment.card_number }}</td>
+                    <td>{{payment.idpay_track_id}}</td>
+                    <td>{{payment.bank_track_id}}</td>
+                    <td>{{payment.status}}</td>
+                    <td><a href="{%url 'payment_check' pk=payment.pk %}">Check</a></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+
+          </div>
+        </div>
+      </div>
+
+      <br/> <br/>
+
+  </body>
+</html>

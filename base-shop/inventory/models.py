@@ -2,34 +2,51 @@ from django.db import models
 from django.utils.text import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+from accounts.models import Customer, User
 
 
 class Category(models.Model):
     category_name = models.CharField(max_length=255)
-    subcategory = models.ForeignKey(
-        'Category', on_delete=models.CASCADE, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "categories"
 
     def __str__(self):
         return self.category_name
 
 
+class SubCategory(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sub_category')
+    subcategory_name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "sub_categories"
+
+    def __str__(self):
+        return self.subcategory_name
+
+
 class Product(models.Model):
     product_name = models.CharField(max_length=255)
-    product_price = models.FloatField()
+    product_price = models.PositiveIntegerField()
     rate = models.FloatField(null=True, blank=True)
     total_quantity = models.IntegerField()
     available_quantity = models.IntegerField(null=True, blank=True)
     description = models.TextField()
-    image = models.ImageField(upload_to='Products/', default="default.jpg")
+    image = models.ImageField(upload_to='Products/', default="default_Zew90ms.jpg")
     slug = models.SlugField(null=True, blank=True)
-    discount_price = models.FloatField(null=True, blank=True)
+    discount_price = models.PositiveIntegerField(null=True, blank=True)
     discount_percentage = models.FloatField(default=0)
     added_date = models.DateField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.RESTRICT)
     feature_value = models.ForeignKey(
         'FeatureValue', on_delete=models.RESTRICT)
-
     supplier = models.ManyToManyField('accounts.Supplier')
+
+    def price_after_discount(self):
+        new_price = self.product_price - \
+                    (self.product_price * self.discount_percentage) / 100
+        return int(new_price)
 
     def __str__(self):
         return self.product_name
@@ -67,12 +84,12 @@ class FeatureKey(models.Model):
     def __str__(self):
         return self.key
 
+
 class Comment(models.Model):
     RATE_OPTIONS = (('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'))
 
     commenting_user = models.CharField(max_length=255)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments')
-    description = models.CharField(max_length=255,null=True, blank=True)
+    description = models.CharField(max_length=255, null=True, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    user_rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], null=True, blank=True)
-
+    user_rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)

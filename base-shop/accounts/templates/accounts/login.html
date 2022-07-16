@@ -85,7 +85,7 @@
                                    {{form.as_p}}
 
                                 <div class="login_submit">
-                                    <a href="#">رمز عبور خود را فراموش کرده اید؟</a>
+                                    <a href="{% url 'forget_password' %}">رمز عبور خود را فراموش کرده اید؟</a>
                                     <label for="remember">
                                         <input id="remember" type="checkbox">
                                         به خاطر سپاری
@@ -93,39 +93,10 @@
                                     <button type="submit">ورود</button>
                             {% endif %}
                                 </div>
-
                             </form>
                         </div>
                     </div>
-                    <!--login area start-->
 
-{#                    <!--register area start-->#}
-{#                    <div class="col-lg-6 col-md-6">#}
-{#                        <div class="account_form register">#}
-{#                            <h2>ثبت نام کاربر</h2>#}
-{#                            <form action="{% url 'signup_customer'%}" method="post">#}
-{#                                   {% csrf_token %}#}
-{#                                   {{form.as_p}}#}
-{##}
-{#                                <div class="login_submit">#}
-{#                                    <button type="submit">ثبت نام</button>#}
-{#                                </div>#}
-{#                            </form>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-lg-6 col-md-6">#}
-{#                        <div class="account_form register">#}
-{#                            <h2>ثبت نام فروشنده</h2>#}
-{#                            <form action="{% url 'signup_supplier' %}" method="post">#}
-{#                                   {% csrf_token %}#}
-{#                                   {{form.as_p}}#}
-{##}
-{#                                <div class="login_submit">#}
-{#                                    <button type="submit">ثبت نام</button>#}
-{#                                </div>#}
-{#                            </form>#}
-{#                        </div>#}
-{#                    </div>#}
                     <!--register area end-->
                 </div>
             </div>

@@ -1,29 +1,34 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-
-
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views import View
-from django.views.generic import ListView, FormView, DeleteView, DetailView, CreateView
+from django.views.generic import ListView, DetailView
 
 from .forms import CommentForm
-from .models import Product, Comment
+from .filters import *
 
 
 class ProductList(ListView):
     model = Product
+    queryset = Product.objects.all()
     template_name: str = "inventory/shop.html"
     context_object_name = "products"
     paginate_by = 6
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
         qs = super().get_queryset()
         q = self.request.GET.get("search")
         if q:
-            qs = qs.filter(product_name__contains=q)
-        return qs
+            qs = qs.filter(Q(product_name__icontains=q) | Q(description__icontains=q)).distinct()
+            context = super().get_context_data(**kwargs)
+            context['my_filter'] = ProductFilter(self.request.GET, queryset=qs)
+            return context
+        else:
+            context = super().get_context_data(**kwargs)
+            context['my_filter'] = ProductFilter(self.request.GET, queryset=qs)
+            return context
 
 
 class ProductDetail(DetailView):
@@ -60,3 +65,4 @@ def add_comment(request, product_pk):
 
     else:
         return HttpResponse(status=400)
+

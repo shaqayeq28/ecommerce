@@ -7,7 +7,6 @@ class CommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['commenting_user'].widget.attrs.update({'class': 'text-test'})
-
         self.fields['description'].widget.attrs.update({'class': 'text-test'})
         self.fields['user_rate'].widget.attrs.update({'style': "color:red;"})
 
@@ -18,7 +17,8 @@ class CommentForm(forms.ModelForm):
         labels = {
             "commenting_user": "نام ",
             "user_rate": "امتیاز شما",
-            "description": "نقد و بررسی شما "
+            "description": "نقد و بررسی شما ",
+            "email":"ایمیل "
 
 
         }
@@ -32,4 +32,5 @@ class CommentForm(forms.ModelForm):
                 "min_value": "عدد کمتر از صفر ممنوعه",
             },
         }
+
 

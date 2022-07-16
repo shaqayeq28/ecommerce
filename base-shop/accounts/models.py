@@ -2,7 +2,6 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.core.validators import RegexValidator
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth import get_user_model
 
 
 class CustomUserManager(BaseUserManager):
@@ -31,9 +30,12 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    username = None
+
+    username = models.CharField(max_length=255, default='', null=True, blank=True)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=11, validators=[RegexValidator(r'^09\d{9}$')], unique=True)
+    job = models.CharField(max_length=255, null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    phone = models.CharField(max_length=11, validators=[RegexValidator(r'^09\d{9}$')], unique=True, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = CustomUserManager()
@@ -42,14 +44,13 @@ class User(AbstractUser):
         db_table = 'auth_user'
 
 
-class Address(User):
+class Address(models.Model):
     province = models.CharField('استان', max_length=255)
     city = models.CharField('شهر', max_length=255)
-    street = models.CharField('خیابان', max_length=255)
-    alley = models.CharField('کوچه', max_length=255)
-    number = models.CharField('پلاک', max_length=255)
-    customer_address = models.ForeignKey('Customer', on_delete=models.CASCADE)
-    supplier_address = models.ForeignKey('Supplier', on_delete=models.CASCADE)
+    address_shipment = models.CharField(max_length=500, default='')
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
+    supplier = models.ForeignKey('Supplier', on_delete=models.CASCADE, null=True, blank=True)
+
 
     class Meta:
         verbose_name = 'Address'

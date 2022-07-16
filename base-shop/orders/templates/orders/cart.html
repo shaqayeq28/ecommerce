@@ -1,4 +1,5 @@
 {% extends 'index.html' %}
+{% load humanize %}
 {% load static %}
 
 {% block content %}
@@ -42,44 +43,33 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        {% for item in order_items  %}
                                             <tr>
-                                                <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                                <td class="product_thumb"><a href="#"><img src="../../../static/assets/img/s-product/product.jpg" alt=""></a></td>
-                                                <td class="product_name"><a href="#">گوشی اپل آیفون X</a></td>
-                                                <td class="product-price">158,000 تومان</td>
-                                                <td class="product_quantity"><label>تعداد</label> <input min="1" max="100" value="1" type="number"></td>
-                                                <td class="product_total">158,000 تومان</td>
+
+                                                <td class="product_remove"><a href="{% url 'remove' item.product.id %}"><i class="fa fa-trash-o"></i></a></td>
+                                                <td class="product_thumb"><a href="#"><img src="{{item.product.image.url}}" alt=""></a></td>
+                                                <td class="product_name"><a href="#">{{ item.product.product_name}}</a></td>
+                                                {% if item.product.discount_price > 0 %}
+                                                <td class="product-price">{{ item.product.discount_price|intcomma:3}}</td>
+                                                {% else %}
+                                                <td class="product-price">{{ item.product.product_price|intcomma:3}}</td>
+                                                {% endif %}
+                                                <td class="product_quantity"><label >تعداد</label>
+                                                    <div class="input-group text-center mb-3" style="width:130px;">
+                                                    <button class="input-group-text increment-btn"><a href="{% url 'increase' item.product.id%}">+</a></button>
+                                                    <input value="{{item.quantity}}" type="text" name="quantity" class="form-control qty-input text-center">
+                                                    <button class="input-group-text decrement-btn"><a href="{% url 'reduce' item.product.id%}">-</a></button>
+                                                    </div>
+                                                </td>
+                                                <td class="product_total">{{item.product_sum_price|intcomma:3}} </td>
 
 
                                             </tr>
-
-                                            <tr>
-                                                <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                                <td class="product_thumb"><a href="#"><img src="../../../static/assets/img/s-product/product2.jpg" alt=""></a></td>
-                                                <td class="product_name"><a href="#">صندلی آشپزخانه</a></td>
-                                                <td class="product-price">158,000 تومان</td>
-                                                <td class="product_quantity"><label>تعداد</label> <input min="1" max="100" value="1" type="number"></td>
-                                                <td class="product_total">158,000 تومان</td>
-
-
-                                            </tr>
-                                            <tr>
-                                                <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                                <td class="product_thumb"><a href="#"><img src="../../../static/assets/img/s-product/product3.jpg" alt=""></a></td>
-                                                <td class="product_name"><a href="#">ساعت هوشمند اپل واچ</a></td>
-                                                <td class="product-price">158,000 تومان</td>
-                                                <td class="product_quantity"><label>تعداد</label> <input min="1" max="100" value="1" type="number"></td>
-                                                <td class="product_total">158,000 تومان</td>
-
-
-                                            </tr>
-
+                                                {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="cart_submit">
-                                    <button type="submit">به روز رسانی سبد</button>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -89,22 +79,14 @@
                                 <div class="coupon_code right">
                                     <h3>مجموع سبد</h3>
                                     <div class="coupon_inner">
-                                        <div class="cart_subtotal">
-                                            <p>جمع جزء</p>
-                                            <p class="cart_amount">342,000 تومان</p>
-                                        </div>
-                                        <div class="cart_subtotal">
-                                            <p>حمل و نقل</p>
-                                            <p class="cart_amount">20,000 تومان</p>
-                                        </div>
-                                        <a href="#">محاسبه هزینه</a>
 
-                                        <div class="cart_subtotal has-border">
+
+                                        <div class="cart_subtotal">
                                             <p>جمع</p>
-                                            <p class="cart_amount">362,000 تومان</p>
+                                            <p class="cart_amount">{{request.order.cart_summation|intcomma:3}}</p>
                                         </div>
                                         <div class="checkout_btn">
-                                            <a href="#">پرداخت</a>
+                                            <a href="{% url 'show_checkout' %}">پرداخت</a>
                                         </div>
                                     </div>
                                 </div>
